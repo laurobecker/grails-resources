@@ -118,7 +118,13 @@ class ResourceMetaStore {
             if (log.debugEnabled) {
                 log.debug "getOrCreateAdHocResource for ${uri}, waiting for latch, another thread is creating resource..."
             }
-            latch.await()
+            
+            try {
+            	latch.await()
+            } catch (Exception e) {
+            	log.error e
+			}
+            
             if (log.debugEnabled) {
                 log.debug "getOrCreateAdHocResource for ${uri}, done waiting for latch, another thread created resource"
             }
